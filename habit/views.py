@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse
 from habit.forms import HabitForm
+from habit.models import HabitModel
 # Create your views here.
 
 
@@ -10,7 +11,10 @@ class HabitView(View):
     greeting = "Good Day"
 
     def get(self, request):
-        return render(request, 'habit/habits.html', {"greeting" : self.greeting})
+
+        habits = HabitModel.objects.all();
+
+        return render(request, 'habit/habits.html', {"habits" : habits})
 
     def post(self, request):
 

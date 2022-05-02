@@ -9,7 +9,7 @@ class HabitModel(models.Model):
     name = models.CharField(max_length=255)
     repeatition = models.IntegerField()
     duration = models.IntegerField()
-    duration_type = models.CharField()
+    duration_type = models.CharField(max_length=255)
     completed = models.BooleanField()
     start_date = models.DateField()
     finnish_date = models.DateField()
