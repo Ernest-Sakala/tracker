@@ -1,20 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import View
 from django.http import HttpResponse
 from habit.forms import HabitForm
 from habit.models import HabitModel
+from django.views.generic.edit import DeleteView , UpdateView
 # Create your views here.
 
 
-class HabitView(View):
-
-    greeting = "Good Day"
+class AddHabitView(View):
 
     def get(self, request):
 
-        habits = HabitModel.objects.all();
+        form = HabitForm()
 
-        return render(request, 'habit/habits.html', {"habits" : habits})
+        return render(request, 'add_habit.html', {'form' : form})
 
     def post(self, request):
 
@@ -23,5 +22,32 @@ class HabitView(View):
         if(habitModel.is_valid()):
             habitModel.save()
 
+        return redirect('habits')
 
-        return render(request, 'habits.html', {"message" : "Habit added successfully"})    
+
+class HabitsView(View):
+
+    def get(self, request):
+
+      habits = HabitModel.objects.all()
+
+      return render(request, 'habits.html', {'habits': habits})
+
+
+
+class DeleteHabitView(DeleteView):
+    model = HabitModel
+    success_url = "/habits"
+
+
+class UpdateHabitView(UpdateView):
+    model = HabitModel
+
+    template_name = "HabitModel_form.html"
+
+    fields = [ 
+        "streak", 
+        "completed"
+    ] 
+
+    success_url = "/habits"

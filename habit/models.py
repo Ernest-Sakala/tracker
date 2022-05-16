@@ -1,4 +1,6 @@
+
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 class HabitModel(models.Model):
@@ -10,8 +12,8 @@ class HabitModel(models.Model):
     repeatition = models.IntegerField()
     duration = models.IntegerField()
     duration_type = models.CharField(max_length=255)
-    completed = models.BooleanField()
-    start_date = models.DateField()
-    finnish_date = models.DateField()
-    broken = models.BooleanField()
-    streak = models.IntegerField()
+    completed = models.BooleanField(default=False)
+    start_date = models.DateField(default=timezone.now())
+    finnish_date = models.DateField(default=timezone.now())
+    broken = models.BooleanField(default=False)
+    streak = models.IntegerField(default=0)
