@@ -22,7 +22,7 @@ class AddHabitView(View):
         if(habitModel.is_valid()):
             habitModel.save()
 
-        return redirect('habits')
+        return redirect('/habits')
 
 
 class HabitsView(View):

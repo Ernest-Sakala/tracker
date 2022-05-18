@@ -7,11 +7,11 @@ class HabitForm(ModelForm):
 
     class Meta:
         model = HabitModel
-        fields = ('name','repeatition', 'duration', 'duration_type')
+        fields = ('name', 'repetition', 'duration')
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'duration': forms.NumberInput(attrs={'class': 'form-control'}),
-            'repeatition': forms.NumberInput(attrs={'class': 'form-control'}),
-            'duration_type': forms.TextInput(attrs={'class': 'form-control'}),
+            'duration': forms.TextInput(attrs={'class': 'form-control'}),
+            'repetition': forms.NumberInput(attrs={'class': 'form-control'}),
+            'start_date': forms.DateField()
         }
