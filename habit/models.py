@@ -12,7 +12,7 @@ class HabitModel(models.Model):
     repetition = models.IntegerField()
     number_completed = models.IntegerField(default=0)
     duration = models.CharField(max_length=255)
-   # frequency = models.CharField(max_length=255)
+  # frequency = models.CharField(max_length=255)
     completed = models.BooleanField(default=False)
     start_date = models.DateField(default=timezone.now())
     finish_date = models.DateField(default=timezone.now())
