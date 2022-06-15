@@ -35,7 +35,7 @@
       <td> {{habit.completed}}</td>
 
       <td> {{habit.start_date }}</td>
-      <td> {{habit.finnish_date }}</td>
+      <td> {{habit.finish_date }}</td>
       <td class = "d-flex flex-row justify-content-around"> 
         <form method="post" action = "delete/{{habit.id}}">
         {% csrf_token %} 
