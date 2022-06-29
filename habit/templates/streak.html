@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<a href="{% url 'add-habit'  %}"> <button class = "btn btn-primary">Add Habit</button> </a>
+<a href="{% url 'habits'  %}"> <button class = "btn btn-primary">View All Habits</button> </a>
+<a href="{% url 'daily'  %}"> <button class = "btn btn-primary">Daily</button> </a>
+<a href="{% url 'weekly'  %}"> <button class = "btn btn-primary">Weekly</button> </a>
+<a href="{% url 'monthly'  %}"> <button class = "btn btn-primary">Monthly</button> </a>
+
+
+
+<h1> The Longest Streak </h1>
+
+<h1>{% if streak != 0 %} {{ streak }} {% else %} <h3>No Streak</h3>  {% endif %}</h1>
+
+
+{% endblock %}

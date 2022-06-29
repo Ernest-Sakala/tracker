@@ -16,7 +16,6 @@
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Habit Name</th>
-      <th scope="col">Repetition</th>
       <th scope="col">Duration</th>
       <th scope="col">Completed</th>
       <th scope="col">Start Date</th>
@@ -30,7 +29,6 @@
     <tr>
       <th scope="row">{{habit.id}}</th>
       <td>{{habit.name}}</td>
-      <td>{{habit.repetition}}</td>
       <td> {{habit.duration }} {{habit.duration_type}} </td>
       <td> {{habit.completed}}</td>
 
@@ -41,7 +39,9 @@
         {% csrf_token %} 
         <input type="submit" value="Delete" class = "btn btn-danger"> 
        </form>   
-       <a href = "{% url 'update' habit.id %}"  ><button class = "btn btn-primary"> Edit</button></a>
+        <a href = "{% url 'update' habit.id %}"  ><button class = "btn btn-primary"> Edit</button></a>
+        <a href = "{% url 'tasks' habit.id %}"  ><button class = "btn btn-primary">  Tasks </button></a>
+        <a href = "{% url 'streak' habit.id %}"  ><button class = "btn btn-primary"> Streak </button></a>
       </td>
     </tr>
 

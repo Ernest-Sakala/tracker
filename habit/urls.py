@@ -1,5 +1,5 @@
 from .views import AddHabitView, DeleteHabitView, HabitsView, UpdateHabitView, DailyHabitsView, WeeklyHabitsView, \
-    MonthlyHabitsView
+    MonthlyHabitsView, TasksView, UpdateTaskView, StreakView
 from django.urls import path
 
 
@@ -10,5 +10,8 @@ urlpatterns = [
     path('update/<pk>', UpdateHabitView.as_view(), name='update'),
     path('daily', DailyHabitsView.as_view(), name='daily'),
     path('weekly', WeeklyHabitsView.as_view(), name='weekly'),
-    path('monthly', MonthlyHabitsView.as_view(), name='monthly')
+    path('monthly', MonthlyHabitsView.as_view(), name='monthly'),
+    path('tasks/<pk>', TasksView.as_view(), name='tasks'),
+    path('update_task/<pk>', UpdateTaskView.as_view(), name='update_task'),
+    path('streak/<pk>', StreakView.as_view(), name='streak')
 ]

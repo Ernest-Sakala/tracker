@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<a href="{% url 'add-habit'  %}"> <button class = "btn btn-primary">Add Habit</button> </a>
+<a href="{% url 'habits'  %}"> <button class = "btn btn-primary">View All Habits</button> </a>
+<a href="{% url 'daily'  %}"> <button class = "btn btn-primary">Daily</button> </a>
+<a href="{% url 'weekly'  %}"> <button class = "btn btn-primary">Weekly</button> </a>
+<a href="{% url 'monthly'  %}"> <button class = "btn btn-primary">Monthly</button> </a>
+
+
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Task Done</th>
+      <th scope="col">Task Date</th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for task in tasks %}
+    <tr>
+      <th scope="row">{{task.id}}</th>
+      <td>{{task.completed}}  <input type="checkbox" name="task"  {% if task.completed %} checked{% endif %}></td>
+      <td>{{task.task_date}}</td>
+
+
+     <td class = "d-flex flex-row justify-content-around">
+       <a href = "{% url 'update_task' task.id %}"  ><button class = "btn btn-primary"> Complete Task </button></a>
+    </td>
+
+    </tr>
+
+
+    {% endfor %}
+
+  </tbody>
+</table>
+
+{% endblock %}
