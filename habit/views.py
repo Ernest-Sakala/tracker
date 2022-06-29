@@ -23,7 +23,7 @@ class AddHabitView(View):
         habit_exists = HabitModel.objects.filter(name=data.get('name')).exists()
 
         if habit_exists:
-            return redirect('/', {'habit_exist': 'Habit Already Exist'})
+            return redirect('/')
 
         start_date = data.get('start_date')
         finish_date = data.get('finish_date')
@@ -44,7 +44,7 @@ class AddHabitView(View):
         elif duration.__eq__("WEEKLY"):
             step = datetime.timedelta(days=7)
         elif duration.__eq__("MONTHLY"):
-            step = datetime.timedelta(days=31)
+            step = datetime.timedelta(days=30)
 
         habit_model = HabitForm(data)
 
@@ -53,15 +53,13 @@ class AddHabitView(View):
 
             saved_habit = HabitModel.objects.filter(name=habit)
 
-            while d < d2:
-                print(d.strftime(date_format))
+            while d <= d2:
                 date = d.strftime(date_format)
+
                 new_date = date.replace('/', '-')
                 task = TaskModel(completed=False, task_date=new_date, habit=saved_habit[0])
                 task.save()
                 d += step
-
-            print(saved_habit[0].name)
 
         return redirect('/habits')
 
@@ -70,6 +68,8 @@ class HabitsView(View):
 
     def get(self, request):
         habits = HabitModel.objects.all()
+
+        print(habits)
 
         return render(request, 'habits.html', {'habits': habits})
 
@@ -158,6 +158,7 @@ class StreakView(View):
                 return max(len_iter(run) for val, run in groupby(data) if val)
             else:
                 return 0;
+
         longest_streak = consecutive_one(number_tasks)
 
         return render(request, 'streak.html', {'streak': longest_streak})
