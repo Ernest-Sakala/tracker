@@ -8,7 +8,7 @@ from habit.models import HabitModel
 class HabitAdminConfig(admin.ModelAdmin):
 
     model = HabitModel
-    list_display = ('id', 'name', 'duration', 'completed', 'start_date', 'finish_date', 'broken', 'streak')
+    list_display = ('id', 'name', 'duration', 'completed', 'start_date', 'finish_date', 'broken')
 
 
 admin.site.register(HabitModel, HabitAdminConfig)

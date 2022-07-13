@@ -138,9 +138,7 @@ class UpdateTaskView(UpdateView):
 
 class StreakView(View):
 
-    def get(self, request, pk):
-        habit = HabitModel.objects.filter(id=pk)
-        tasks = TaskModel.objects.filter(habit=habit[0])
+    def number_formatted(self, tasks):
 
         number_tasks = []
 
@@ -149,16 +147,69 @@ class StreakView(View):
                 number_tasks.append(1)
             else:
                 number_tasks.append(0)
+        return number_tasks
 
-        def len_iter(items):
-            return sum(1 for _ in items)
+    def len_iter(self, items):
+        return sum(1 for _ in items)
+
+    def get(self, request, pk):
+        habit = HabitModel.objects.filter(id=pk)
+        tasks = TaskModel.objects.filter(habit=habit[0])
+
+        number_tasks = self.number_formatted(tasks)
 
         def consecutive_one(data) -> int:
             if number_tasks.__contains__(1):
-                return max(len_iter(run) for val, run in groupby(data) if val)
+                return max(self.len_iter(run) for val, run in groupby(data) if val)
             else:
-                return 0;
+                return 0
 
         longest_streak = consecutive_one(number_tasks)
 
         return render(request, 'streak.html', {'streak': longest_streak})
+
+
+class StreaksView(View):
+
+    def get(self, request):
+
+        habits = HabitModel.objects.all()
+
+        habit_streaks = []
+
+        for habit in habits:
+            tasks = TaskModel.objects.filter(habit=habit)
+
+            number_tasks = []
+
+            for task in tasks:
+                if task.completed:
+                    number_tasks.append(1)
+                else:
+                    number_tasks.append(0)
+
+            def len_iter(items):
+                return sum(1 for _ in items)
+
+            def consecutive_one(data) -> int:
+                if number_tasks.__contains__(1):
+                    return max(len_iter(run) for val, run in groupby(data) if val)
+                else:
+                    return 0
+
+            longest_streak = consecutive_one(number_tasks)
+
+            habit_streak = HabitStreaks()
+
+            habit_streak.habit = habit.name
+            habit_streak.streak = longest_streak
+
+            habit_streaks.append(habit_streak)
+
+        return render(request, 'streaks.html', {'habit_streaks': habit_streaks})
+
+
+class HabitStreaks:
+    def __int__(self, habit, streak):
+        self.habit = habit
+        self.streak = streak
