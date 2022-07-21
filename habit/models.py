@@ -24,7 +24,7 @@ class TaskModel(models.Model):
     class Meta:
         db_table = "task"
 
-    completed = models.BooleanField(default=False)
+    done = models.BooleanField(default=False)
     task_date = models.DateField()
     habit = models.ForeignKey(HabitModel, on_delete=models.CASCADE)
 

@@ -143,7 +143,7 @@ class StreakView(View):
         number_tasks = []
 
         for task in tasks:
-            if task.completed:
+            if task.done:
                 number_tasks.append(1)
             else:
                 number_tasks.append(0)
@@ -165,6 +165,8 @@ class StreakView(View):
                 return 0
 
         longest_streak = consecutive_one(number_tasks)
+
+        print(longest_streak)
 
         return render(request, 'streak.html', {'streak': longest_streak})
 
